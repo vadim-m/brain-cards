@@ -75,9 +75,6 @@ export const createEditCategory = (app) => {
     }
   };
 
-  title.addEventListener("focus", clearTitle);
-  title.addEventListener("blur", checkTitle);
-
   const createTRCell = (dataArr) => {
     const tr = createElement("tr");
 
@@ -114,6 +111,14 @@ export const createEditCategory = (app) => {
     return tr;
   };
 
+  title.addEventListener("focus", clearTitle);
+  title.addEventListener("blur", checkTitle);
+
+  btnAddRow.addEventListener("click", () => {
+    const emptyRow = createTRCell(["", ""]);
+    tbody.append(emptyRow);
+  });
+
   const mount = (data = { title: TITLE, pairs: [] }) => {
     tbody.textContent = "";
     title.textContent = data.title;
@@ -125,7 +130,8 @@ export const createEditCategory = (app) => {
     }
 
     const rows = data.pairs.map(createTRCell);
-    tbody.append(...rows);
+    const emptyRow = createTRCell(["", ""]);
+    tbody.append(...rows, emptyRow);
 
     app.append(editCategory);
   };
