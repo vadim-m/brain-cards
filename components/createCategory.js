@@ -1,4 +1,5 @@
 import { createElement } from "../js/helpers/createElement.js";
+import { declOfNum } from "../js/helpers/declOfNum.js";
 
 export const createCategory = (app) => {
   const category = createElement("section", {
@@ -18,9 +19,37 @@ export const createCategory = (app) => {
   const createCategoryItem = (data) => {
     const item = createElement("li", {
       className: "category__item",
+    });
+
+    item.dataset.id = data.id;
+
+    const btnCard = createElement("button", {
+      className: "category__card",
+    });
+
+    const titleText = createElement("span", {
+      className: "category__title",
       textContent: data.title,
     });
-    item.dataset.id = data.id;
+
+    const countPairs = createElement("span", {
+      className: "category__pairs",
+      textContent: declOfNum(data.length, ["пара", "пары", "пар"]),
+    });
+
+    btnCard.append(titleText, countPairs);
+
+    const btnEdit = createElement("button", {
+      className: "category__btn category__edit",
+      ariaLabel: "редактировать",
+    });
+
+    const btnDel = createElement("button", {
+      className: "category__btn category__del",
+      ariaLabel: "удалить",
+    });
+
+    item.append(btnCard, btnEdit, btnDel);
 
     return item;
   };
@@ -36,5 +65,5 @@ export const createCategory = (app) => {
     category.remove();
   };
 
-  return { mount, unmount };
+  return { mount, unmount, categoryList };
 };
