@@ -40,7 +40,7 @@ export const createCategory = (app) => {
     btnCard.append(titleText, countPairs);
 
     const btnEdit = createElement("button", {
-      className: "category__btn category__edit",
+      className: "category__btn category__ed it",
       ariaLabel: "редактировать",
     });
 
