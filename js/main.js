@@ -40,6 +40,22 @@ const initApp = async () => {
     headerObj.updateHeaderTitle("Новая категория");
     editCategoryObj.mount();
   });
+
+  categoryObj.categoryList.addEventListener("click", ({ target }) => {
+    const categoryItem = target.closest(".category__item");
+
+    if (!categoryItem) {
+      return;
+    }
+
+    if (target.closest(".category__edit")) {
+      const dataCards = { title: "test", pairs: [["1", "2"]] };
+      allSectionsUnmount();
+      headerObj.updateHeaderTitle("Редактирование");
+      editCategoryObj.mount(dataCards);
+      return;
+    }
+  });
 };
 
 initApp();

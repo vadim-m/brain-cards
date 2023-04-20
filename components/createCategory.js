@@ -40,7 +40,7 @@ export const createCategory = (app) => {
     btnCard.append(titleText, countPairs);
 
     const btnEdit = createElement("button", {
-      className: "category__btn category__ed it",
+      className: "category__btn category__edit",
       ariaLabel: "редактировать",
     });
 
@@ -65,5 +65,5 @@ export const createCategory = (app) => {
     category.remove();
   };
 
-  return { mount, unmount };
+  return { mount, unmount, categoryList };
 };
