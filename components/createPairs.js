@@ -40,6 +40,30 @@ export const createPairs = (app) => {
 
     const flipCard = () => {
       btnCard.classList.add("card__item_flipped");
+      btnCard.removeEventListener("click", flipCard);
+
+      setTimeout(() => {
+        btnCard.classList.remove("card__item_flipped");
+
+        setTimeout(() => {
+          index++;
+
+          if (index === data.length) {
+            cardFront.textContent = "Все слова пройдены";
+
+            setTimeout(() => {
+              btnReturn.click();
+            }, 1500);
+            return;
+          }
+
+          cardFront.textContent = data[index][0];
+          cardBack.textContent = data[index][1];
+          setTimeout(() => {
+            btnCard.addEventListener("click", flipCard);
+          }, 300);
+        }, 100);
+      }, 1200);
     };
 
     btnCard.addEventListener("click", flipCard);
