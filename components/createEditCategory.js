@@ -27,11 +27,11 @@ export const createEditCategory = (app) => {
 
   const tableHeadCellMain = createElement("th", {
     className: "table__cell",
-    textContent: "main",
+    textContent: "front",
   });
   const tableHeadCellSecond = createElement("th", {
     className: "table__cell",
-    textContent: "second",
+    textContent: "back",
   });
   const tableHeadCellEmpty = createElement("th", {
     className: "table__cell",
@@ -78,19 +78,19 @@ export const createEditCategory = (app) => {
   const createTRCell = (dataArr) => {
     const tr = createElement("tr");
 
-    const tableCellMain = createElement("th", {
+    const tableCellMain = createElement("td", {
       className: "table__cell table__cell_one",
       contentEditable: true,
       textContent: dataArr[0],
     });
 
-    const tableCellSecond = createElement("th", {
+    const tableCellSecond = createElement("td", {
       className: "table__cell table__cell_two",
       contentEditable: true,
       textContent: dataArr[1],
     });
 
-    const tableCellDel = createElement("th", {
+    const tableCellDel = createElement("td", {
       className: "table__cell",
     });
 
