@@ -8,6 +8,7 @@ import {
   fetchCard,
   fetchCategories,
   fetchCreateCategory,
+  fetchDeleteCategory,
   fetchEditCategory,
 } from "./service/service.js";
 
@@ -104,7 +105,16 @@ const initApp = async () => {
     }
 
     if (target.closest(".category__del")) {
-      console.log("del");
+      if (confirm("Вы уверены, что хотите удалить категорию?")) {
+        const result = fetchDeleteCategory(categoryItem.dataset.id);
+
+        if (result.error) {
+          showAlert(result.error.message);
+        }
+
+        showAlert("Категория удалена");
+        categoryItem.remove();
+      }
       return;
     }
 
