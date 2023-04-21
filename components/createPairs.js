@@ -32,8 +32,22 @@ export const createPairs = (app) => {
   container.append(btnReturn, btnCard);
   pairs.append(container);
 
+  const cardController = (data) => {
+    let index = 0;
+
+    cardFront.textContent = data[index][0];
+    cardBack.textContent = data[index][1];
+
+    const flipCard = () => {
+      btnCard.classList.add("card__item_flipped");
+    };
+
+    btnCard.addEventListener("click", flipCard);
+  };
+
   const mount = (data) => {
     app.append(pairs);
+    cardController(data.pairs);
   };
 
   const unmount = (data) => {
