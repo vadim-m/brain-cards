@@ -18,6 +18,15 @@ const initApp = async () => {
     [categoryObj, editCategoryObj, pairsObj].forEach((el) => el.unmount());
   };
 
+  const postHandler = () => {
+    const data = editCategoryObj.parseData();
+  };
+
+  const patchHandler = () => {
+    const data = editCategoryObj.parseData();
+    console.log(data);
+  };
+
   const renderIndex = async (e) => {
     e?.preventDefault();
     allSectionsUnmount();
@@ -42,6 +51,8 @@ const initApp = async () => {
     allSectionsUnmount();
     headerObj.updateHeaderTitle("Новая категория");
     editCategoryObj.mount();
+    editCategoryObj.btnSave.addEventListener("click", postHandler);
+    editCategoryObj.btnSave.removeEventListener("click", patchHandler);
   });
 
   categoryObj.categoryList.addEventListener("click", async ({ target }) => {
@@ -56,6 +67,9 @@ const initApp = async () => {
       allSectionsUnmount();
       headerObj.updateHeaderTitle("Редактирование");
       editCategoryObj.mount(dataCards);
+      editCategoryObj.btnSave.addEventListener("click", patchHandler);
+      editCategoryObj.btnSave.removeEventListener("click", postHandler);
+
       return;
     }
 

@@ -46,12 +46,12 @@ export const createEditCategory = (app) => {
     textContent: "Добавить пару",
   });
 
-  const btnAddSave = createElement("div", {
+  const btnSave = createElement("div", {
     className: "edit__btn edit__save",
     textContent: "Сохранить категорию",
   });
 
-  const btnAddCancel = createElement("div", {
+  const btnCancel = createElement("div", {
     className: "edit__btn edit__cancel",
     textContent: "Отмена",
   });
@@ -60,7 +60,7 @@ export const createEditCategory = (app) => {
   table.append(thead, tbody);
   thead.append(trThead);
   trThead.append(tableHeadCellMain, tableHeadCellSecond, tableHeadCellEmpty);
-  btnWrapper.append(btnAddRow, btnAddSave, btnAddCancel);
+  btnWrapper.append(btnAddRow, btnSave, btnCancel);
   container.append(title, table, btnWrapper);
 
   const clearTitle = () => {
@@ -119,6 +119,34 @@ export const createEditCategory = (app) => {
     tbody.append(emptyRow);
   });
 
+  const parseData = () => {
+    const cellsMain = document.querySelectorAll(".table__cell_one");
+    const cellsSecond = document.querySelectorAll(".table__cell_two");
+
+    const data = {
+      pairs: [],
+    };
+
+    for (let i = 0; i < cellsMain.length; i++) {
+      const textMain = cellsMain[i].textContent.trim();
+      const textSecond = cellsSecond[i].textContent.trim();
+
+      if (textMain && textSecond) {
+        data.pairs[i] = [textMain, textSecond];
+      }
+    }
+
+    if (title.textContent.trim() && title.textContent !== TITLE) {
+      data.title = title.textContent.trim();
+    }
+
+    if (btnSave.dataset.id) {
+      data.id = btnSave.dataset.id;
+    }
+
+    return data;
+  };
+
   const mount = (data = { title: TITLE, pairs: [] }) => {
     tbody.textContent = "";
     title.textContent = data.title;
@@ -133,12 +161,16 @@ export const createEditCategory = (app) => {
     const emptyRow = createTRCell(["", ""]);
     tbody.append(...rows, emptyRow);
 
+    btnSave.dataset.id = data.id ? data.id : "";
+
     app.append(editCategory);
+    //! del later
+    parseData();
   };
 
   const unmount = () => {
     editCategory.remove();
   };
 
-  return { mount, unmount };
+  return { mount, unmount, parseData, btnSave, btnCancel };
 };
