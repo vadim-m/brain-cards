@@ -133,6 +133,7 @@ export const createEditCategory = (app) => {
 
       if (textMain && textSecond) {
         data.pairs[i] = [textMain, textSecond];
+        data.pairs.push([textMain, textSecond]);
       }
     }
 
@@ -164,8 +165,6 @@ export const createEditCategory = (app) => {
     btnSave.dataset.id = data.id ? data.id : "";
 
     app.append(editCategory);
-    //! del later
-    parseData();
   };
 
   const unmount = () => {
