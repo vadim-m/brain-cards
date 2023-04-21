@@ -1,4 +1,5 @@
 import { createElement } from "../js/helpers/createElement.js";
+import { showAlert } from "./createAlert.js";
 
 export const createPairs = (app) => {
   const pairs = createElement("section", {
@@ -50,6 +51,7 @@ export const createPairs = (app) => {
 
           if (index === data.length) {
             cardFront.textContent = "Все слова пройдены";
+            showAlert("Возврат к категориям");
 
             setTimeout(() => {
               btnReturn.click();
