@@ -1,9 +1,15 @@
+import { showAlert } from "../components/createAlert.js";
 import { createCategory } from "../components/createCategory.js";
 import { createEditCategory } from "../components/createEditCategory.js";
 import { createHeader } from "../components/createHeader.js";
 import { createPairs } from "../components/createPairs.js";
 import { createElement } from "./helpers/createElement.js";
-import { fetchCard, fetchCategories } from "./service/service.js";
+import {
+  fetchCard,
+  fetchCategories,
+  fetchCreateCategory,
+  fetchEditCategory,
+} from "./service/service.js";
 
 const initApp = async () => {
   const headerEl = document.querySelector(".header");
@@ -18,13 +24,37 @@ const initApp = async () => {
     [categoryObj, editCategoryObj, pairsObj].forEach((el) => el.unmount());
   };
 
-  const postHandler = () => {
+  const postHandler = async () => {
     const data = editCategoryObj.parseData();
+    const dataCategories = await fetchCreateCategory(data);
+
+    if (dataCategories.error) {
+      showAlert(dataCategory.error?.message);
+      return;
+    }
+
+    showAlert(`Новая категория - ${data.title} добавлена!`);
+    allSectionsUnmount();
+    headerObj.updateHeaderTitle("Категории");
+    categoryObj.mount(dataCategories);
   };
 
-  const patchHandler = () => {
+  const patchHandler = async () => {
     const data = editCategoryObj.parseData();
-    console.log(data);
+    const dataCategories = await fetchEditCategory(
+      editCategoryObj.btnSave.dataset.id,
+      data
+    );
+
+    if (dataCategories.error) {
+      showAlert(dataCategory.error?.message);
+      return;
+    }
+
+    showAlert(`Категория ${data.title} обновлена!`);
+    allSectionsUnmount();
+    headerObj.updateHeaderTitle("Категории");
+    categoryObj.mount(dataCategories);
   };
 
   const renderIndex = async (e) => {
