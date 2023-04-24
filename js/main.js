@@ -58,6 +58,12 @@ const initApp = async () => {
     categoryObj.mount(dataCategories);
   };
 
+  const cancelHandler = async () => {
+    if (confirm("Вы уверены, что хотите выйти без сохранения категории?")) {
+      await renderIndex();
+    }
+  };
+
   const renderIndex = async (e) => {
     e?.preventDefault();
     allSectionsUnmount();
@@ -100,6 +106,7 @@ const initApp = async () => {
       editCategoryObj.mount(dataCards);
       editCategoryObj.btnSave.addEventListener("click", patchHandler);
       editCategoryObj.btnSave.removeEventListener("click", postHandler);
+      editCategoryObj.btnCancel.addEventListener("click", cancelHandler);
 
       return;
     }
