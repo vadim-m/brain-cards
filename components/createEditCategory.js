@@ -132,7 +132,6 @@ export const createEditCategory = (app) => {
       const textSecond = cellsSecond[i].textContent.trim();
 
       if (textMain && textSecond) {
-        data.pairs[i] = [textMain, textSecond];
         data.pairs.push([textMain, textSecond]);
       }
     }
